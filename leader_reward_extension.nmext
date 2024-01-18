@@ -1,0 +1,18 @@
+
+//const int unfold_t;
+
+const double unfold_r = 2.5;
+
+
+module unfolding
+	original_reward : [0..unfold_t] init 0;
+	[c12] (original_reward < unfold_t) -> (original_reward' = original_reward + 1);
+	[c12] (original_reward = unfold_t) -> (original_reward' = original_reward);
+endmodule
+
+
+rewards "nrew"
+	[c12] (original_reward < unfold_t) : unfold_r;
+	[c12] (original_reward = unfold_t) : 1;
+endrewards
+
